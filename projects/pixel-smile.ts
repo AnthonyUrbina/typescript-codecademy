@@ -1,4 +1,3 @@
-// create the image data
 const imageWidth = 20;
 const imageHeight = 8;
 const imageData = createImageData();
@@ -14,7 +13,26 @@ drawHorizontalLine(4, 5, 12);
 drawDot(15, 4);
 
 // output what we drew to the console
-// outputImage();
+outputImage();
+
+function drawVerticalLine(x: number, y: number, length: number) {
+  for (let i = 0; i < length; i++) {
+    drawDot(y + i, x)
+  }
+}
+
+function drawHorizontalLine(x: number, y: number, length: number) {
+  for (let i = 0; i < length; i++) {
+    drawDot(x + i, y)
+  }
+}
+
+function drawDot(x: number, y: number) {
+  if (isPointInImage(x, y)) {
+    const index = y * imageWidth + x
+    imageData[index] = true
+  }
+}
 
 function drawRectangle(
   x: number,
@@ -39,7 +57,7 @@ function drawRectangle(
  * @param y - The vertical position within
  * the image.
  */
-function isPointInImage(x: number, y?: number): boolean {
+function isPointInImage(x: number, y: number) {
   return x >= 0 && x < imageWidth && y >= 0 && y < imageHeight;
 }
 
@@ -50,7 +68,7 @@ function isPointInImage(x: number, y?: number): boolean {
  * @param offChar - Character to render an
  * "off" pixel with.
  */
-function outputImage(onChar = "X", offChar) {
+function outputImage(onChar = "X", offChar = " ") {
   let text = "";
 
   for (let i = 0; i < imageData.length; i++) {
@@ -58,7 +76,7 @@ function outputImage(onChar = "X", offChar) {
       text += "\n"; // new line
     }
 
-    text += imageData[i] ? onChar : offChar * 2;
+    text += imageData[i] ? onChar : offChar
   }
 
   console.log(text);
@@ -88,15 +106,4 @@ function createImageData(): boolean[] {
   // create array of size `length` containing `false` values
   const length = imageWidth * imageHeight;
   return new Array(length).fill(false);
-}
-function drawDot(arg0: number, arg1: number) {
-  throw new Error("Function not implemented.");
-}
-
-function drawHorizontalLine(arg0: number, arg1: number, arg2: number) {
-  throw new Error("Function not implemented.");
-}
-
-function drawVerticalLine(x: number, y: number, height: number) {
-  throw new Error("Function not implemented.");
 }
